@@ -165,6 +165,30 @@ const intents = await collectPages({
 `request` aceita URL absoluta (`nextPage`) ou path (`/chats`).
 Em 429 ele espera e tenta de novo (ate 5 vezes). Qualquer outro status vira `BotmakerApiError`.
 
+### Debug / trace
+
+`debug` loga metodo, URL, status e tempo. `trace` inclui headers (token
+redigido) e bodies.
+
+```ts
+const api = createBotmakerClient({
+  accessToken: process.env.BOTMAKER_ACCESS_TOKEN,
+  trace: true,
+  // logger: (line) => process.stderr.write(line + "\n"),
+});
+```
+
+Env (vale para qualquer `create*` que monte o cliente):
+
+```bash
+export BOTMAKER_DEBUG=1      # debug
+export BOTMAKER_TRACE=1      # trace
+# ou BOTMAKER_DEBUG=trace
+```
+
+Cada tentativa HTTP (incluindo retry 429) gera linhas `[botmaker debug]` /
+`[botmaker trace]` no stderr por padrao.
+
 Injetar `fetch` (testes / Lambda com proxy):
 
 ```ts

@@ -38,6 +38,8 @@ Spec: `specs/openapi-v2.json`. Tipos: `src/generated/schema.d.ts` (commitar apos
 2. Auth so via header `access-token` (`BOTMAKER_ACCESS_TOKEN` ou `accessToken`).
 3. Respeitar limites da spec nos helpers de alto nivel.
 4. Retry automatico **so em 429**. Outros HTTP viram `BotmakerApiError`.
+   Debug HTTP: `debug`/`trace` no cliente ou `BOTMAKER_DEBUG`/`BOTMAKER_TRACE`.
+   Nunca logar o `access-token` em claro.
 5. Paginacao segue `nextPage`. `listSessions` devolve `{ items, truncated, pages }`.
 6. Nao commitar `.env` nem tokens.
 7. Node 20+; ESM; imports com extensao `.js`.

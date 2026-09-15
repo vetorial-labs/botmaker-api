@@ -155,6 +155,9 @@ try {
 }
 ```
 
+Debug de HTTP: `debug: true` (metodo/URL/status) ou `trace: true` (headers
+redigidos + body). Env: `BOTMAKER_DEBUG=1` / `BOTMAKER_TRACE=1`.
+
 Mais exemplos (paginação, `explainDelivery`, `resolveChat`): **[docs/USAGE.md](docs/USAGE.md)**.
 
 ## Desenvolvimento neste repo

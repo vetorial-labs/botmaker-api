@@ -8,6 +8,11 @@ export {
   type QueryValue,
 } from "./client.js";
 export { BotmakerApiError } from "./errors.js";
+export {
+  resolveLogLevel,
+  type BotmakerLogLevel,
+  type BotmakerLogger,
+} from "./trace.js";
 export { itemsOf } from "./items.js";
 export {
   collectPages,

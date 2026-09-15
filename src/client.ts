@@ -2,6 +2,12 @@ import createOpenApiClient from "openapi-fetch";
 import { BotmakerApiError } from "./errors.js";
 import type { paths } from "./generated/schema.js";
 import { createRetryFetch, defaultSleep, type SleepFn } from "./retry.js";
+import {
+  createTracedFetch,
+  resolveLogLevel,
+  type BotmakerLogLevel,
+  type BotmakerLogger,
+} from "./trace.js";
 import { resolveBaseUrl, resolveUrl, withQuery } from "./url.js";
 
 export const USER_AGENT = "botmaker-api/0.1.0 (unofficial)";
@@ -14,6 +20,11 @@ export type BotmakerClientOptions = {
   fetch?: typeof fetch;
   maxRetries?: number;
   sleep?: SleepFn;
+  /** `true`/`"debug"`: metodo+URL+status. `"trace"`: + headers (token redigido) e body. */
+  debug?: boolean | BotmakerLogLevel;
+  /** Atalho para debug: "trace". Tambem: env BOTMAKER_TRACE=1 */
+  trace?: boolean;
+  logger?: BotmakerLogger;
 };
 
 export type RequestOptions = {
@@ -46,7 +57,12 @@ export function createBotmakerClient(options: BotmakerClientOptions = {}) {
   const baseUrl = resolveBaseUrl(options.baseUrl);
   const sleep = options.sleep ?? defaultSleep;
   const fetchImpl = options.fetch ?? globalThis.fetch;
-  const fetchWithRetry = createRetryFetch(fetchImpl, {
+  const logLevel = resolveLogLevel(options);
+  const tracedFetch = createTracedFetch(fetchImpl, {
+    level: logLevel,
+    log: options.logger,
+  });
+  const fetchWithRetry = createRetryFetch(tracedFetch, {
     maxRetries: options.maxRetries,
     sleep,
   });
