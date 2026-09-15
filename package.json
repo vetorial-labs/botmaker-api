@@ -1,0 +1,93 @@
+{
+  "name": "@vetorial-labs/botmaker-api",
+  "version": "0.1.0",
+  "description": "Unofficial TypeScript HTTP client for the Botmaker public API v2. Not affiliated with Botmaker.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "import": "./dist/auth/index.js"
+    },
+    "./channels": {
+      "types": "./dist/channels/index.d.ts",
+      "import": "./dist/channels/index.js"
+    },
+    "./chats": {
+      "types": "./dist/chats/index.d.ts",
+      "import": "./dist/chats/index.js"
+    },
+    "./notifications": {
+      "types": "./dist/notifications/index.d.ts",
+      "import": "./dist/notifications/index.js"
+    },
+    "./webhooks": {
+      "types": "./dist/webhooks/index.d.ts",
+      "import": "./dist/webhooks/index.js"
+    },
+    "./whatsapp": {
+      "types": "./dist/whatsapp/index.d.ts",
+      "import": "./dist/whatsapp/index.js"
+    },
+    "./intents": {
+      "types": "./dist/intents/index.d.ts",
+      "import": "./dist/intents/index.js"
+    },
+    "./agents": {
+      "types": "./dist/agents/index.d.ts",
+      "import": "./dist/agents/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.js"
+    },
+    "./tickets": {
+      "types": "./dist/tickets/index.d.ts",
+      "import": "./dist/tickets/index.js"
+    },
+    "./ecommerce": {
+      "types": "./dist/ecommerce/index.d.ts",
+      "import": "./dist/ecommerce/index.js"
+    },
+    "./billing": {
+      "types": "./dist/billing/index.d.ts",
+      "import": "./dist/billing/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vetorial-labs/botmaker-api.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "prepare": "npm run build",
+    "build": "tsc -p tsconfig.json && mkdir -p dist/generated && cp src/generated/schema.d.ts dist/generated/schema.d.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "npm run build"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.1",
+    "openapi-typescript": "^7.9.1",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
